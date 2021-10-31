@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    
+<link rel="stylesheet" href="styles.css">
+<title>Document</title>
+</head>
+<body>
+    <header>
+        <nav ><a class="icon" href="index.html">
+            dines
+        </a></nav>
+        <nav class="nav__container">
+            <a href="add.html"class="nav">
+                Add dine
+            </a>
+            <a href="index.html"class="nav">
+                My dines
+            </a>
+            <a class="nav">
+                Map
+            </a>
+            <a class="nav" href="login.html">
+                Login/Register
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <form action="">
+            <p class="form__title">New dine</p>
+
+
+            <label class="input__container">
+                <span class="input__title">Name</span>
+                <input class="input"type="text"id="name">
+            </label>
+
+            <label class="input__container">
+                <span class="input__title">Description</span>
+                <input class="input"type="text"id="description">
+            </label>
+        
+            <label class="input__container">
+                <span class="input__title">Score</span>
+                <input class="input"type="number" id="score">
+            </label>
+
+            <label class="input__container">
+                <span class="input__title">Restaurant</span>
+                <input class="input"type="text"id="restaurant">
+            </label>
+
+            <label class="input__container">
+                <span class="input__title">Address</span>
+                <input class="input" type="text"id="address">
+            </label>
+
+            <button class="button--submit">
+                Add
+            </button>
+        
+        </form>
+    </main>
+    <script>
+         $('.button--submit').click(function(event){
+			event.preventDefault()
+            
+			let name=document.getElementById('name').value;
+            let description=document.getElementById('description').value;
+            let score=document.getElementById('score').value;
+            let restaurant=document.getElementById('restaurant').value;
+            let address=document.getElementById('address').value;
+
+			
+			
+			let route = "name="+name+"&description="+description+"&score="+score+"&restaurant="+restaurant+"&address="+address;
+			
+			$.ajax({
+				url: 'createDine.php',
+				type: 'POST',
+				data: route,
+			})	
+			 .done(function(res) {
+				console.log(res)
+                // window.location.href = "index.html";
+			 })
+			 
+			 .fail(function() {
+				 console.log("error");
+			 })
+			 
+			 .always(function() {
+				 console.log("complete");
+					
+			});
+
+			
+			
+		});
+    </script>
+</body>
+</html>
