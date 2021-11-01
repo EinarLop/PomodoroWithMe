@@ -16,29 +16,66 @@ body {
 
   background-color: #f5f5f5;
 
-  background-image: radial-gradient(#03565a78 1.5px, transparent 1.5px),
-    radial-gradient(#03565a78 1.5px, #f5f5f5 1.5px);
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px;
+  background-color: #f5f5f5;
+  opacity: 1;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #f5f5f5 20%,
+      #f5f5f5 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #f5f5f5 20%,
+        #f5f5f5 80%,
+        transparent 80%,
+        transparent
+      )
+      42.5px 42.5px,
+    linear-gradient(#2141591f 3.4px, transparent 3.4px) 0 -1.7px,
+    linear-gradient(90deg, #2141591f 3.4px, #f5f5f5 3.4px) -1.7px 0;
+  background-size: 85px 85px, 85px 85px, 42.5px 42.5px, 42.5px 42.5px;
 }
 header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 25px;
 }
 .icon {
   font-family: "Lora", serif;
   font-size: 4.5rem;
   text-decoration: none;
-  color: #012e31;
+  color: #214159;
+}
+
+.icon__container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.icon__sub {
+  font-family: "Lora", serif;
+  font-size: 2rem;
+
+  color: #214159;
 }
 
 .nav,
 .nav--register {
   font-size: 2.5rem;
   text-decoration: none;
-  color: #012e31;
+  color: #214159;
+}
+
+.nav--small {
+  font-size: 2rem;
+  text-decoration: none;
+  color: black;
 }
 
 .nav--register {
@@ -48,7 +85,8 @@ header {
 }
 
 .nav:hover,
-.nav--register:hover {
+.nav--register:hover,
+.nav--small:hover {
   text-decoration: underline;
 }
 
@@ -71,7 +109,7 @@ form {
   padding: 15px;
   border-radius: 10px;
   margin: 0 auto;
-  border: 3px solid #03565a;
+  border: 3px solid #214159;
   box-shadow: 5px 10px 15px #b4b4b4;
   background-color: #f5f5f5;
 }
@@ -99,7 +137,7 @@ form {
   border-radius: 3px;
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
-  border: 2px solid #03565a;
+  border: 2px solid #214159;
 }
 
 input:focus {
@@ -115,30 +153,33 @@ input:focus {
   border-radius: 3px;
   font-family: "Nunito Sans", sans-serif;
   font-size: 2rem;
-  background-color: #03565a;
+  background-color: #214159;
   color: white;
 }
 
-.card {
-  max-width: 650px;
-  display: flex;
-  flex-wrap: wrap;
-  /* border: 3px solid #03565a; */
-
-  border-radius: 10px;
-  box-shadow: 5px 10px 15px #b4b4b4;
-  background-color: #f5f5f5;
+.button--task {
+  margin: 0 auto;
+  margin-top: 10px;
+  height: 35px;
+  width: 40%;
+  border: 2px solid black;
+  border-radius: 3px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 2rem;
+  background-color: transparent;
+  color: white;
 }
 
 .card__content {
-  width: 48%;
-  padding: 20px 40px 20px 20px;
-  /* border: 5px double #03565a; */
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 10px;
+  background-color: #f5f5f5df;
+  border-radius: 10px;
 }
 
-.card__division {
-  width: 4%;
-}
 .image__container {
   max-width: 48%;
   aspect-ratio: 3 / 5;
@@ -153,19 +194,70 @@ input:focus {
 }
 
 .content__title {
-  font-size: 2.5rem;
-  font-family: "Lora", serif;
+  font-size: 2.2rem;
+  width: 100%;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .content__description,
 .content__address {
   font-size: 1.8rem;
-  text-align: justify;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .content__address {
   margin-bottom: 0px;
+}
+
+.message--error {
+  margin-top: 10px;
+  font-size: 2rem;
+  text-align: center;
+  color: red;
+}
+
+/* ------------------------------------------ */
+
+.tasks__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tasks--IU,
+.tasks--INU,
+.tasks--NIU,
+.tasks--NINU {
+  width: 25%;
+  height: 80vh;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+}
+.tasks__priority {
+  font-size: 3rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.tasks__category {
+  font-size: 2.5rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 25px;
+}
+.tasks--IU {
+  background-color: #6096d8ab;
+}
+
+.tasks--INU {
+  background-color: #47b091ab;
+}
+
+.tasks--NIU {
+  background-color: #e9ab47ab;
+}
+.tasks--NINU {
+  background-color: #de7275ab;
 }

@@ -15,18 +15,21 @@
 </head>
 <body>
     <header>
-        <nav ><a class="icon" href="index.html">
-            dines
-        </a></nav>
+        <nav class="icon__container">
+            <a class="icon" href="index.html">
+            PWM
+            </a>
+            <span class="icon__sub">Pomodoro with me</span>
+    </nav>
         <nav class="nav__container">
             <a href="add.html"class="nav">
-                Add dine
+                Create task
             </a>
             <a href="index.html"class="nav">
-                My dines
+                My tasks
             </a>
             <a class="nav">
-                Map
+                Leaderboard
             </a>
             <a class="nav" href="login.html">
                 Login/Register
@@ -36,38 +39,47 @@
 
     <main>
         <form action="">
-            <p class="form__title">New dine</p>
+            <p class="form__title">Create task</p>
 
 
             <label class="input__container">
-                <span class="input__title">Name</span>
-                <input class="input"type="text"id="name">
+                <span class="input__title">Title</span>
+                <input class="input" type="text" id="title">
             </label>
 
             <label class="input__container">
-                <span class="input__title">Description</span>
-                <input class="input"type="text"id="description">
+                <span class="input__title">Class</span>
+                <input class="input"type="text"id="class">
             </label>
         
             <label class="input__container">
-                <span class="input__title">Score</span>
-                <input class="input"type="number" id="score">
+                <span class="input__title">Duration</span>
+                <input class="input"type="number" id="duration">
             </label>
 
             <label class="input__container">
-                <span class="input__title">Restaurant</span>
-                <input class="input"type="text"id="restaurant">
+                <span class="input__title">Due date</span>
+                <input class="input"type="datetime-local"id="restaurant">
             </label>
 
             <label class="input__container">
-                <span class="input__title">Address</span>
-                <input class="input" type="text"id="address">
+                <span class="input__title">Priority</span>
+
+            <select  class="input" name="" id="">
+                <option value="IU">1. Important & Urgent</option>
+                <option value="INU">2. Important & Not Urgent</option>
+                <option value="NIU">3. Not Important & Urgent</option>
+                <option value="NINU">4. Not Important & Not Urgent</option>
+
+            </select>
             </label>
+
+        
 
             <button class="button--submit">
-                Add
+            Create
             </button>
-        
+        <p id="message--error" class="message--error"></p>
         </form>
     </main>
     <script>
@@ -80,7 +92,14 @@
             let restaurant=document.getElementById('restaurant').value;
             let address=document.getElementById('address').value;
 
-			
+        
+			if(name.length==0 || description.length==0 || score.length==0 || restaurant.length==0 || address.length ==0){
+                $("#message--error").html("None of the values can be left empty")        
+            }
+            else if(parseInt(score)<0 || parseInt(score)>5){
+                $("#message--error").html("The score can only be between 0 and 5")        
+            }
+            else{
 			
 			let route = "name="+name+"&description="+description+"&score="+score+"&restaurant="+restaurant+"&address="+address;
 			
@@ -91,7 +110,16 @@
 			})	
 			 .done(function(res) {
 				console.log(res)
-                // window.location.href = "index.html";
+                $("#message--error").css({ 
+                    "margin-top": "10px",
+                    "font-size": "2rem",
+                    "text-align": "center",
+                    "color": "green"})   
+                $("#message--error").html("Dine created successfully")        
+                setTimeout(() =>{
+                    window.location.href = "index.html";
+                },1000)
+                 
 			 })
 			 
 			 .fail(function() {
@@ -103,9 +131,10 @@
 					
 			});
 
-			
+            }
 			
 		});
+         
     </script>
 </body>
 </html>

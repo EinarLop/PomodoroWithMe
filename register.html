@@ -15,18 +15,21 @@
 </head>
 <body>
     <header>
-        <nav ><a class="icon" href="index.html">
-            dines
-        </a></nav>
+        <nav class="icon__container">
+            <a class="icon" href="index.html">
+            PWM
+            </a>
+            <span class="icon__sub">Pomodoro with me</span>
+    </nav>
         <nav class="nav__container">
             <a href="add.html"class="nav">
-                Add dine
+                Create task
             </a>
             <a href="index.html"class="nav">
-                My dines
+                My tasks
             </a>
             <a class="nav">
-                Map
+                Leaderboard
             </a>
             <a class="nav" href="login.html">
                 Login/Register
@@ -52,12 +55,12 @@
 
             <label class="input__container">
                 <span class="input__title">Password</span>
-                <input class="input" id="password" type="text">
+                <input class="input" id="password" type="password">
             </label>
 
             <label class="input__container">
                 <span class="input__title">Confrim password</span>
-                <input class="input"type="text">
+                <input class="input"type="password" id="confirmPassword">
             </label>
         
             
@@ -65,6 +68,8 @@
             <button class="button--submit">
                Register
             </button>
+
+            <p id="message--error" class="message--error"></p>
 
             <a  href="./register.html"class="nav--register">Already have an account? Login</a>
         
@@ -78,7 +83,17 @@
 			let username=document.getElementById('username').value;
 			let email=document.getElementById('email').value;
 			let password=document.getElementById('password').value;
-			
+            let confirmPassword=document.getElementById('confirmPassword').value;
+
+			if(username.length==0 || email.length==0 || password.length==0 || confirmPassword.length==0){
+                $("#message--error").html("None of the values can be left empty") 
+            }
+            else if(password != confirmPassword){
+                $("#message--error").html("The passwords do not macth") 
+
+            }
+            else{
+
 			let route = "username="+username+"&email="+email+"&password="+password; 
 			
 			$.ajax({
@@ -88,7 +103,16 @@
 			})	
 			 .done(function(res) {
 				console.log(res)
-                window.location.href = "index.html";
+              
+                $("#message--error").css({ 
+                    "margin-top": "10px",
+                    "font-size": "2rem",
+                    "text-align": "center",
+                    "color": "green"})   
+                $("#message--error").html("Registration was successful")        
+                setTimeout(() =>{
+                    window.location.href = "index.html";
+                },1000)
 			 })
 			 
 			 .fail(function() {
@@ -99,6 +123,7 @@
 				 console.log("complete");
 					
 			});
+            }
 		});
     </script>
 </body>
