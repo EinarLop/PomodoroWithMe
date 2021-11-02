@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<title>Document</title>
+</head>
+
+
+<script>
+
+ let globalTime = 0; 
+ let breakTime = false
+ 
+ function startTimer(duration) {  
+
+    document.querySelector("#timer").innerHTML = `<button  class="button--submit"> Start </button> `
+     
+    var timer = duration*60, minutes, seconds;
+    
+    let regularSession = setInterval(function () {
+      
+       let display = document.querySelector('#time');
+ 
+
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+        if(breakTime == false){
+            globalTime = globalTime + (1/60);
+        shownGlobalTime = parseInt(globalTime)
+        document.querySelector("#globalTime").textContent = `${shownGlobalTime} minutes`;
+        }
+        
+
+        if (--timer < 0) {
+            breakTime = !breakTime
+            
+            if(breakTime == true){
+            
+                document.querySelector("#timer__msg").textContent = "Pomodoro session completed, let's take a break"
+                document.querySelector("#time").textContent = "5:00"
+                document.querySelector("#timer").innerHTML = `<button onclick={startTimer(5)} class="button--submit"> Start </button> `
+                regularSession = clearInterval(regularSession)
+            }
+            else{
+                document.querySelector("#timer__msg").textContent = "Break finished, let's start another session"
+                document.querySelector("#time").textContent = "25:00"
+                document.querySelector("#timer").innerHTML = `<button onclick={startTimer(25)} class="button--submit"> Start </button> `
+                regularSession = clearInterval(regularSession)
+            }
+        }
+    }, 10);
+}
+
+// window.onload = function () {
+//         var fiveMinutes = 60 * 25,
+//         display = document.querySelector('#time');
+//     startTimer(fiveMinutes, display);
+// };
+   
+
+</script>
+<body>
+    <header>
+        <nav class="icon__container">
+            <a class="icon" href="index.html">
+            PWM
+            </a>
+            <span class="icon__sub">Pomodoro with me</span>
+    </nav>
+        <nav class="nav__container">
+            <a href="add.html"class="nav">
+                Create task
+            </a>
+            <a href="index.html"class="nav">
+                My tasks
+            </a>
+            <a class="nav">
+                Leaderboard
+            </a>
+            <a class="nav" href="login.html">
+                Login/Register
+            </a>
+        </nav>
+    </header>
+
+    
+    <main class="timer__container">
+        <p class="timer__welcome"> Welcome to the task timer!</p>
+        <p class="task__title"> You are currently working on: <b>Haskell exercises</b></p>
+        <p class="task__title">The due date for this task is: <b> 09/24/2021 11:59 PM</b>  </p>
+        <p class="task__title">This task is for the class: <b>Programming languages</b> </p>
+        <p class="timer__estimated"> You estimated that this task will take you </p>
+        <b class="timer__estimated__minutes">120 minutes</b>
+        <p class="timer__estimated"> You have currently worked for </p>
+        <b id="globalTime"class="timer__estimated__minutes">0 minutes</b>
+
+        <p id="timer__msg" class="timer__estimated"> Let's start a pomodoro session </p>
+        <span id="time"class="time" id="time">25:00</span> 
+
+        <div id="timer" class="timer">    
+            <button onclick={startTimer(25)} class="button--submit"> Start </button>
+        </div>
+   
+
+    </main>
+ 
+    
+</body>
+</html>
