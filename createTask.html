@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./styles/styles.css">
     
-<link rel="stylesheet" href="styles.css">
 <title>Document</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
             <span class="icon__sub">Pomodoro with me</span>
     </nav>
         <nav class="nav__container">
-            <a href="add.html"class="nav">
+            <a href="createTask.html"class="nav">
                 Create task
             </a>
             <a href="index.html"class="nav">
@@ -48,8 +48,8 @@
             </label>
 
             <label class="input__container">
-                <span class="input__title">Class</span>
-                <input class="input"type="text"id="class">
+                <span class="input__title">Subject</span>
+                <input class="input"type="text" id="subject">
             </label>
         
             <label class="input__container">
@@ -59,17 +59,17 @@
 
             <label class="input__container">
                 <span class="input__title">Due date</span>
-                <input class="input"type="datetime-local"id="restaurant">
+                <input class="input"type="datetime-local" id="due_date">
             </label>
 
             <label class="input__container">
-                <span class="input__title">Priority</span>
+                <span class="input__title" >Priority</span>
 
-            <select  class="input" name="" id="">
-                <option value="IU">1. Important & Urgent</option>
-                <option value="INU">2. Important & Not Urgent</option>
-                <option value="NIU">3. Not Important & Urgent</option>
-                <option value="NINU">4. Not Important & Not Urgent</option>
+            <select  class="input" name="" id="priority">
+                <option value="1">1. Important & Urgent</option>
+                <option value="2">2. Important & Not Urgent</option>
+                <option value="3">3. Not Important & Urgent</option>
+                <option value="4">4. Not Important & Not Urgent</option>
 
             </select>
             </label>
@@ -86,25 +86,23 @@
          $('.button--submit').click(function(event){
 			event.preventDefault()
             
-			let name=document.getElementById('name').value;
-            let description=document.getElementById('description').value;
-            let score=document.getElementById('score').value;
-            let restaurant=document.getElementById('restaurant').value;
-            let address=document.getElementById('address').value;
+			let title=document.getElementById('title').value;
+            let subject=document.getElementById('subject').value;
+            let duration=document.getElementById('duration').value;
+            let due_date=document.getElementById('due_date').value;
+            let priority=document.getElementById('priority').value;
 
         
-			if(name.length==0 || description.length==0 || score.length==0 || restaurant.length==0 || address.length ==0){
+			if(title.length==0 || subject.length==0 || duration.length==0 || due_date.length==0 || priority.length ==0){
                 $("#message--error").html("None of the values can be left empty")        
             }
-            else if(parseInt(score)<0 || parseInt(score)>5){
-                $("#message--error").html("The score can only be between 0 and 5")        
-            }
+
             else{
 			
-			let route = "name="+name+"&description="+description+"&score="+score+"&restaurant="+restaurant+"&address="+address;
+			let route = "title="+title+"&subject="+subject+"&duration="+duration+"&due_date="+due_date+"&priority="+priority;
 			
 			$.ajax({
-				url: 'createDine.php',
+                url: 'http://localhost/pomodorowithme/api/createTask.php',
 				type: 'POST',
 				data: route,
 			})	
@@ -122,8 +120,8 @@
                  
 			 })
 			 
-			 .fail(function() {
-				 console.log("error");
+			 .fail(function(error) {
+				 console.log(error);
 			 })
 			 
 			 .always(function() {

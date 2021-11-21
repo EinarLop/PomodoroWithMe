@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles/styles.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 <title>Document</title>
@@ -22,7 +22,7 @@
             <span class="icon__sub">Pomodoro with me</span>
     </nav>
         <nav class="nav__container">
-            <a href="add.html"class="nav">
+            <a href="createTask.html"class="nav">
                 Create task
             </a>
             <a href="index.html"class="nav">
@@ -97,12 +97,13 @@
 			let route = "username="+username+"&email="+email+"&password="+password; 
 			
 			$.ajax({
-				url: 'createUser.php',
+                url: 'http://localhost/pomodorowithme/api/createUser.php',
 				type: 'POST',
 				data: route,
 			})	
 			 .done(function(res) {
-				console.log(res)
+
+			    console.log(res)
               
                 $("#message--error").css({ 
                     "margin-top": "10px",
@@ -110,9 +111,9 @@
                     "text-align": "center",
                     "color": "green"})   
                 $("#message--error").html("Registration was successful")        
-                setTimeout(() =>{
-                    window.location.href = "index.html";
-                },1000)
+                // setTimeout(() =>{
+                //     window.location.href = "index.html";
+                // },1000)
 			 })
 			 
 			 .fail(function() {

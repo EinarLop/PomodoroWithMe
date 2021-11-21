@@ -11,15 +11,18 @@ function debug_to_console($data) {
 }
 
 
-	$username=$_POST['username'];
-	$email=$_POST['email'];
-	$password=$_POST['password'];
+	$title=$_POST['title'];
+	$subject=$_POST['subject'];
+	$duration=$_POST['duration'];
+    $due_date=$_POST['due_date'];
+    $priority=$_POST['priority'];
 	
 	
-	$query = "INSERT INTO users(username, email, password) VALUES ('$username','$email','$password')";
+	$query = "INSERT INTO tasks(title,subject,duration,due_date,priority) 
+    VALUES ('$title','$subject','$duration','$due_date','$priority')";
 
 	if(!databaseConnection($query)){
-        debug_to_console("Test");
+       echo "popp";
 	}else{
         debug_to_console("Test");
 	}

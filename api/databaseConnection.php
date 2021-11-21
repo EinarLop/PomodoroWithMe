@@ -1,12 +1,12 @@
 <?php
-	define("server","localhost");
-	define("user","admin");
-	define("password","admin");
-	define("database","dines");
+	define("server","mysql:host=database:3306");
+	define("user","root");
+	define("password","tiger");
+	define("database","pwm");
 	
 	function databaseConnection($consulta){
 		
-		$conexion  = mysqli_connect(server,user,password,database);
+		$conexion  = mysqli_connect("database", "root", "tiger", "pwm");
 		$resultado = mysqli_query($conexion,$consulta);
 		
 		if($resultado){
@@ -19,5 +19,5 @@
 			return FALSE;
 		}
 	}
-	
+
 	?>

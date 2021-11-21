@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles/styles.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 <title>Document</title>
@@ -16,50 +16,53 @@
 
 
 <script>
- 
+
 
     $(window).load(function(){
-        
-			
-			$.ajax({
-                type: "GET",
-                url: "getDines.php",
-                dataType: "JSON",
-                success: (res) => {
-                container = $("#card__container")
+        $.ajax({
+				url: 'http://localhost/pomodorowithme/api/getTasks.php',
+				type: 'GET',
+				dataType: "JSON",
+                success: () => {console.log(1)}
+			})	
+			 .done(function(res) {
+				console.log(res)
+                  
                     
-                    $.each(res, function (index, dine) {
+                    $.each(res, function (index, task) {
+                        let priority = "#"+task.priority
+                        container = $(priority) 
+                        
                         container.html(container.html() + 
+                        ` 
+                        <div class="card__content">
+                            <p class="content__title"> ${task.title}</p>
+                            <p class="content__description"><b>Subject: </b> ${task.subject} </p>
+                            <p class="content__description"> <b>Duration:</b> ${task.duration}</p>
+                            <p class="content__description"> <b>Due date:</b> ${task.due_date}</p>
+                            <a> <button class="button--task"> <a href="./timer.html"class="nav--small">Start</a> </button></a> 
+                        </div>
                         
-                        
-                        
-                    ` <div class="card">
-            <picture class="image__container">
-                <img class="image"src="${dine.image}" alt="">
-            </picture>
-        <div class="card__division">
-        </div>
-            <div class="card__content">
-                <p class="content__title">${dine.name}</p>
-                <p class="content__description"> <b>About: </b>${dine.description}</p>
-                <p class="content__description"> <b>Price:</b> 100$</p>
-                <p class="content__description"> <b>Raiting:</b> ${dine.score}/5</p>
-                <p class="content__description"> <b>Restaurant:</b> ${dine.restaurant}</p>
-                <p class="content__address"> <b>Address: </b> ${dine.address}</p>
-                
-            </div>
-            </div> `
-
-
-                        
-                        
+                        `
                         )  
                 });
-            }   
-    });
 
-    })
 
+                 
+			 })
+			 
+			 .fail(function(error) {
+				 console.log(error);
+			 })
+			 
+			 .always(function() {
+				 console.log("complete");
+					
+			});
+
+    }
+    )
+    
 
 </script>
 <body>
@@ -71,7 +74,7 @@
             <span class="icon__sub">Pomodoro with me</span>
     </nav>
         <nav class="nav__container">
-            <a href="add.html"class="nav">
+            <a href="createTask.html"class="nav">
                 Create task
             </a>
             <a href="index.html"class="nav">
@@ -88,31 +91,31 @@
 
     <main id="tasks__container" class="tasks__container">
 
-        <section class="tasks--IU">
+
+        <section class="tasks--IU" id="1">
             <p class="tasks__priority">Do first</p>
             <p class="tasks__category">Important & Urgent</p>
 
-
         </section>
-        <section class="tasks--INU">
+
+        <section class="tasks--INU" id="2">
             <p class="tasks__priority">Schedule</p>
             <p class="tasks__category">Important & Not Urgent</p>
 
-            <div class="card__content">
-                
+            <!-- <div class="card__content">
                     <p class="content__title"> Haskell exercises</p>
                     <p class="content__description"><b>Class: </b> Programming languages </p>
                     <p class="content__description"> <b>Duration:</b> 120 min</p>
                     <p class="content__description"> <b>Due date:</b> 09/24/2021 11:59 PM</p>
                    <a> <button class="button--task"> <a href="./timer.html"class="nav--small">Start</a> </button></a> 
-            </div>
+            </div> -->
 
         </section>
-        <section class="tasks--NIU">
+        <section class="tasks--NIU" id="3">
             <p class="tasks__priority">Delegate</p>
             <p class="tasks__category">Not Important & Urgent</p>
         </section>
-        <section class="tasks--NINU">
+        <section class="tasks--NINU" id="4">
             <p class="tasks__priority">Don't do</p>
             <p class="tasks__category">Not Important & Not Urgent</p>
         </section>
