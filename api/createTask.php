@@ -18,8 +18,8 @@ function debug_to_console($data) {
     $priority=$_POST['priority'];
 	
 	
-	$query = "INSERT INTO tasks(title,subject,duration,due_date,priority) 
-    VALUES ('$title','$subject','$duration','$due_date','$priority')";
+	$query = "INSERT INTO tasks(title,subject,duration,current_minutes,due_date,priority) 
+    VALUES ('$title','$subject','$duration', 0, '$due_date','$priority')";
 
 	if(!databaseConnection($query)){
        echo "popp";

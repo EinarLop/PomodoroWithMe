@@ -30,6 +30,7 @@
                   
                     
                     $.each(res, function (index, task) {
+                        console.log(task.id)
                         let priority = "#"+task.priority
                         container = $(priority) 
                         
@@ -40,7 +41,7 @@
                             <p class="content__description"><b>Subject: </b> ${task.subject} </p>
                             <p class="content__description"> <b>Duration:</b> ${task.duration}</p>
                             <p class="content__description"> <b>Due date:</b> ${task.due_date}</p>
-                            <a> <button class="button--task"> <a href="./timer.html"class="nav--small">Start</a> </button></a> 
+                            <a> <button class="button--task"> <a href="./timer.html?id=${task.id}"class="nav--small">Start</a> </button></a> 
                         </div>
                         
                         `

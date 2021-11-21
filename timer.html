@@ -14,8 +14,62 @@
 <title>Document</title>
 </head>
 
-
 <script>
+ $(window).load(function(){
+    let url = new URL(window.location.href)
+        var id = url.searchParams.get("id");
+        console.log(id)
+        let route = "id="+id;
+
+        $.ajax({
+            url: 'http://localhost/pomodorowithme/api/gettaskbyid.php',
+		    type: 'POST',
+		    data: route,
+			})	
+            .done(function(res) {
+				task = JSON.parse(res)
+                
+                document.querySelector("#timer__container").innerHTML = 
+                `
+                <button onclick="test()">hello</button>
+                <p class="timer__welcome"> Welcome to the task timer!</p>
+                <p class="task__title" id="title"> You are currently working on: <b>${task.title}</b></p>
+                <p class="task__title" id="due_date">The due date for this task is: <b> ${task.due_date}</b>  </p>
+                <p class="task__title" id="subject" >This task is for the class: <b>${task.subject}</b> </p>
+                <p class="timer__estimated"> You estimated that this task will take you </p>
+                <b class="timer__estimated__minutes" id="duration">${task.duration}  minuites</b>
+                <p class="timer__estimated"> You have currently worked for </p>
+                <b id="globalTime"class="timer__estimated__minutes" id="current_minutes">${task.current_minutes} minutes</b>
+
+                <p id="timer__msg" class="timer__estimated"> Let's start a pomodoro session </p>
+                <span id="time"class="time" id="time">25:00</span> 
+
+                <div id="timer" class="timer">    
+                     <button onclick={startTimer(25)} class="button--submit"> Start </button>
+                </div>
+
+                `
+              
+
+                
+
+			 })
+			 
+			 .fail(function(error) {
+				 console.log(error);
+			 })
+ })
+
+       
+			
+    
+
+
+
+</script>
+<script>
+
+
 
  let globalTime = 0; 
  let breakTime = false
@@ -98,15 +152,16 @@
     </header>
 
     
-    <main class="timer__container">
+    <main class="timer__container" id="timer__container">
+      
         <p class="timer__welcome"> Welcome to the task timer!</p>
-        <p class="task__title"> You are currently working on: <b>Haskell exercises</b></p>
-        <p class="task__title">The due date for this task is: <b> 09/24/2021 11:59 PM</b>  </p>
-        <p class="task__title">This task is for the class: <b>Programming languages</b> </p>
+        <p class="task__title" id="title"> You are currently working on: <b>Haskell exercises</b></p>
+        <p class="task__title" id="due_date">The due date for this task is: <b> 09/24/2021 11:59 PM</b>  </p>
+        <p class="task__title" id="subject" >This task is for the class: <b>Programming languages</b> </p>
         <p class="timer__estimated"> You estimated that this task will take you </p>
-        <b class="timer__estimated__minutes">120 minutes</b>
+        <b class="timer__estimated__minutes" id="duration">120 minutes</b>
         <p class="timer__estimated"> You have currently worked for </p>
-        <b id="globalTime"class="timer__estimated__minutes">0 minutes</b>
+        <b id="globalTime"class="timer__estimated__minutes" id="current_minutes">0 minutes</b>
 
         <p id="timer__msg" class="timer__estimated"> Let's start a pomodoro session </p>
         <span id="time"class="time" id="time">25:00</span> 
