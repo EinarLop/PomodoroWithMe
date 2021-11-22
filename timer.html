@@ -163,6 +163,9 @@ function saveProgress(){
 			})	
             .done(function(res) {
                 errorMsg(0)
+                setTimeout(() =>{
+                    window.location.href = "index.html";
+                },1000)
 			 })
 			 
 			 .fail(function(error) {

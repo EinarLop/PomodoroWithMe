@@ -14,62 +14,6 @@
 <title>Document</title>
 </head>
 
-
-<script>
- let cookie = document.cookie
- let i = cookie.indexOf("=")
- let user_id = cookie.substring(i+1)
- let route = "user_id="+user_id; 
-
-    $(window).load(function(){
-        $.ajax({
-				url: 'http://localhost/pomodorowithme/api/getTasks.php',
-				type: 'POST',
-				dataType: "JSON",
-                data: route,
-                success: () => {console.log(1)}
-			})	
-			 .done(function(res) {
-				console.log(res)
-                  
-                    
-                    $.each(res, function (index, task) {
-                        console.log(task.id)
-                        let priority = "#"+task.priority
-                        container = $(priority) 
-                        
-                        container.html(container.html() + 
-                        ` 
-                        <div class="card__content">
-                            <p class="content__title"> ${task.title}</p>
-                            <p class="content__description"><b>Subject: </b> ${task.subject} </p>
-                            <p class="content__description"> <b>Duration:</b> ${task.duration}</p>
-                            <p class="content__description"> <b>Due date:</b> ${task.due_date}</p>
-                            <a> <button class="button--task"> <a href="./timer.html?id=${task.id}"class="nav--small">Start</a> </button></a> 
-                        </div>
-                        
-                        `
-                        )  
-                });
-
-
-                 
-			 })
-			 
-			 .fail(function(error) {
-				 console.log(error);
-			 })
-			 
-			 .always(function() {
-				 console.log("complete");
-					
-			});
-
-    }
-    )
-    
-
-</script>
 <body>
     <header>
         <nav class="icon__container">
@@ -94,40 +38,45 @@
         </nav>
     </header>
 
-    <main id="tasks__container" class="tasks__container">
+    <main id="home__container" class="home__container">
+   <section class="home__content__container">
+       <p class="home__title">Pomodoro With Me ...</p>
+       <p class="home__about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iure consequatur cupiditate, molestias distinctio, autem, cum quia iusto fuga libero esse itaque cumque provident tempora. Aperiam provident omnis aut sit!</p>
+   </section>
+   <div class="home__divider"></div>
+    <picture class="home__image__container">
+        <img class="home__image" src="images/ReadingSideDoodle.svg" alt="">
+    </picture>
+
+     <picture class="home__image__container">
+         <img class="home__image" src="images/MessyDoodle.png" alt="">
+     </picture>
+     <div class="home__divider"></div>
+
+    <section class="home__content__container">
+        <p class="home__title">Pomodoro With Me ...</p>
+        <p class="home__about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iure consequatur cupiditate, molestias distinctio, autem, cum quia iusto fuga libero esse itaque cumque provident tempora. Aperiam provident omnis aut sit!</p>
+    </section>
+
+    <section class="home__content__container">
+        <p class="home__title">Pomodoro With Me ...</p>
+        <p class="home__about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi iure consequatur cupiditate, molestias distinctio, autem, cum quia iusto fuga libero esse itaque cumque provident tempora. Aperiam provident omnis aut sit!</p>
+    </section>
+
+    <div class="home__divider"></div>
 
 
-        <section class="tasks--IU" id="1">
-            <p class="tasks__priority">Do first</p>
-            <p class="tasks__category">Important & Urgent</p>
+    <picture class="home__image__container">
+        <img class="home__image" src="images/CoffeeDoddle.svg" alt="">
+    </picture>
 
-        </section>
+  <section class="signup__container">
+    <button class="button--signup">Sign up</button>
+  </section>
 
-        <section class="tasks--INU" id="2">
-            <p class="tasks__priority">Schedule</p>
-            <p class="tasks__category">Important & Not Urgent</p>
-
-            <!-- <div class="card__content">
-                    <p class="content__title"> Haskell exercises</p>
-                    <p class="content__description"><b>Class: </b> Programming languages </p>
-                    <p class="content__description"> <b>Duration:</b> 120 min</p>
-                    <p class="content__description"> <b>Due date:</b> 09/24/2021 11:59 PM</p>
-                   <a> <button class="button--task"> <a href="./timer.html"class="nav--small">Start</a> </button></a> 
-            </div> -->
-
-        </section>
-        <section class="tasks--NIU" id="3">
-            <p class="tasks__priority">Delegate</p>
-            <p class="tasks__category">Not Important & Urgent</p>
-        </section>
-        <section class="tasks--NINU" id="4">
-            <p class="tasks__priority">Don't do</p>
-            <p class="tasks__category">Not Important & Not Urgent</p>
-        </section>
+    
        
     </main>
-
- 
     
 </body>
 </html>
