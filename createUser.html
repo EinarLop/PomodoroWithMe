@@ -71,7 +71,7 @@
 
             <p id="message--error" class="message--error"></p>
 
-            <a  href="./register.html"class="nav--register">Already have an account? Login</a>
+            <a  href="./login.html"class="nav--register">Already have an account? Login</a>
         
         </form>
     </main>
@@ -111,9 +111,9 @@
                     "text-align": "center",
                     "color": "green"})   
                 $("#message--error").html("Registration was successful")        
-                // setTimeout(() =>{
-                //     window.location.href = "index.html";
-                // },1000)
+                setTimeout(() =>{
+                    window.location.href = "index.html";
+                },1000)
 			 })
 			 
 			 .fail(function() {

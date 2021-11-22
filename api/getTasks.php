@@ -9,8 +9,10 @@ function debug_to_console($data) {
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
+    $user_id=$_POST['user_id'];
+    // debug_to_console($user_id);
 
-	$query = "SELECT * FROM tasks";
+	$query = "SELECT * FROM tasks WHERE user_id=$user_id";
     $result = databaseConnection($query);
     $data = new ArrayObject(array());
     $i=0;

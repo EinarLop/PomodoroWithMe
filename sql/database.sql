@@ -13,7 +13,7 @@ CREATE  TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS tasks(
     id INT NOT NULL AUTO_INCREMENT,
-    user_id INT,
+    user_id INT 
     title VARCHAR(100) NOT NULL,
     subject VARCHAR(100) NOT NULL,
     duration INT NOT NULL,

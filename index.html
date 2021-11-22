@@ -16,13 +16,17 @@
 
 
 <script>
-
+ let cookie = document.cookie
+ let i = cookie.indexOf("=")
+ let user_id = cookie.substring(i+1)
+ let route = "user_id="+user_id; 
 
     $(window).load(function(){
         $.ajax({
 				url: 'http://localhost/pomodorowithme/api/getTasks.php',
-				type: 'GET',
+				type: 'POST',
 				dataType: "JSON",
+                data: route,
                 success: () => {console.log(1)}
 			})	
 			 .done(function(res) {
@@ -127,3 +131,6 @@
     
 </body>
 </html>
+
+
+<!-- To do: 1. Update time , 2. Leaderboard, 3. Landing page -->

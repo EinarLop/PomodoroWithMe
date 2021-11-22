@@ -99,7 +99,12 @@
 
             else{
 			
-			let route = "title="+title+"&subject="+subject+"&duration="+duration+"&due_date="+due_date+"&priority="+priority;
+            let cookie = document.cookie
+            let i = cookie.indexOf("=")
+            let userId = cookie.substring(i+1)
+            console.log(userId)   
+
+			let route = "title="+title+"&subject="+subject+"&duration="+duration+"&due_date="+due_date+"&priority="+priority+"&user_id="+userId;
 			
 			$.ajax({
                 url: 'http://localhost/pomodorowithme/api/createTask.php',
@@ -114,9 +119,9 @@
                     "text-align": "center",
                     "color": "green"})   
                 $("#message--error").html("Dine created successfully")        
-                setTimeout(() =>{
-                    window.location.href = "index.html";
-                },1000)
+                // setTimeout(() =>{
+                //     window.location.href = "index.html";
+                // },1000)
                  
 			 })
 			 

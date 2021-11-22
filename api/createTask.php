@@ -16,10 +16,11 @@ function debug_to_console($data) {
 	$duration=$_POST['duration'];
     $due_date=$_POST['due_date'];
     $priority=$_POST['priority'];
+    $user_id=$_POST['user_id'];
 	
 	
-	$query = "INSERT INTO tasks(title,subject,duration,current_minutes,due_date,priority) 
-    VALUES ('$title','$subject','$duration', 0, '$due_date','$priority')";
+	$query = "INSERT INTO tasks(user_id,title,subject,duration,current_minutes,due_date,priority) 
+    VALUES ($user_id,'$title','$subject','$duration', 0, '$due_date','$priority')";
 
 	if(!databaseConnection($query)){
        echo "popp";
