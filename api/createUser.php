@@ -7,7 +7,7 @@ include('databaseConnection.php');
 	$password=$_POST['password'];
 	
 	
-	$query = "INSERT INTO users(username, password, email) VALUES ('$username','$password', '$email')";
+	$query = "INSERT INTO users(username, password, email, score) VALUES ('$username','$password', '$email', 0)";
 
 	if(!databaseConnection($query)){
         echo "error";

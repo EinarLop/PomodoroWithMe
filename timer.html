@@ -15,7 +15,15 @@
 </head>
 
 <script>
+
+
+
+
+
+
+var globalTime = 0
  $(window).load(function(){
+
     let url = new URL(window.location.href)
         var id = url.searchParams.get("id");
         console.log(id)
@@ -28,10 +36,10 @@
 			})	
             .done(function(res) {
 				task = JSON.parse(res)
-                
+                globalTime = parseInt(task.current_minutes)
+                console.log(globalTime + "pop")
                 document.querySelector("#timer__container").innerHTML = 
                 `
-            
                 <p class="timer__welcome"> Welcome to the task timer!</p>
                 <p class="task__title" id="title"> You are currently working on: <b>${task.title}</b></p>
                 <p class="task__title" id="due_date">The due date for this task is: <b> ${task.due_date}</b>  </p>
@@ -47,6 +55,12 @@
                 <div id="timer" class="timer">    
                      <button onclick={startTimer(25)} class="button--submit"> Start </button>
                 </div>
+
+                <div id="saveProgress" class="timer">    
+                     <button onclick={saveProgress()}  class="button--submit" style="background-color: #f14d00;"> Save progress</button>
+                </div>
+
+                <p id="message--error" class="message--error"></p>
 
                 `
               
@@ -66,18 +80,19 @@
 
 
 
-</script>
-<script>
 
 
 
- let globalTime = 0; 
+ 
  let breakTime = false
  
  function startTimer(duration) {  
 
     document.querySelector("#timer").innerHTML = `<button  class="button--submit"> Start </button> `
+                     
+    document.querySelector("#saveProgress").innerHTML = ` <button onclick="errorMsg(1)" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
      
+
     var timer = duration*60, minutes, seconds;
     
     let regularSession = setInterval(function () {
@@ -93,6 +108,7 @@
 
         display.textContent = minutes + ":" + seconds;
         if(breakTime == false){
+            
             globalTime = globalTime + (1/60);
         shownGlobalTime = parseInt(globalTime)
         document.querySelector("#globalTime").textContent = `${shownGlobalTime} minutes`;
@@ -107,27 +123,59 @@
                 document.querySelector("#timer__msg").textContent = "Pomodoro session completed, let's take a break"
                 document.querySelector("#time").textContent = "5:00"
                 document.querySelector("#timer").innerHTML = `<button onclick={startTimer(5)} class="button--submit"> Start </button> `
+                document.querySelector("#saveProgress").innerHTML = ` <button onclick="saveProgress()" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+                
                 regularSession = clearInterval(regularSession)
             }
             else{
                 document.querySelector("#timer__msg").textContent = "Break finished, let's start another session"
                 document.querySelector("#time").textContent = "25:00"
                 document.querySelector("#timer").innerHTML = `<button onclick={startTimer(25)} class="button--submit"> Start </button> `
+                document.querySelector("#saveProgress").innerHTML = ` <button onclick="saveProgress()" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+
                 regularSession = clearInterval(regularSession)
             }
         }
     }, 10);
 }
+  
 
-// window.onload = function () {
-//         var fiveMinutes = 60 * 25,
-//         display = document.querySelector('#time');
-//     startTimer(fiveMinutes, display);
-// };
-   
+function errorMsg(id){
+    if (id ===1 ){
+        document.querySelector("#message--error").innerHTML = "Progress can't be saved during a pomodoro session"
+    }
+    else{
+        document.querySelector("#message--error").innerHTML = "Progress saved successfully"
+        document.querySelector("#message--error").style.color = "green"
+    }
 
-</script>
+}
+
+function saveProgress(){
+        let url = new URL(window.location.href)
+        let id = url.searchParams.get("id");
+        let route = "id="+id+"&current_minutes="+globalTime;
+
+    $.ajax({
+            url: 'http://localhost/pomodorowithme/api/updateTask.php',
+		    type: 'POST',
+		    data: route,
+			})	
+            .done(function(res) {
+                errorMsg(0)
+			 })
+			 
+			 .fail(function(error) {
+				 console.log(error);
+			 })
+}
+
+
+            </script>
+
+
 <body>
+
     <header>
         <nav class="icon__container">
             <a class="icon" href="index.html">
@@ -142,7 +190,7 @@
             <a href="index.html"class="nav">
                 My tasks
             </a>
-            <a class="nav">
+            <a class="nav" href="leaderboard.html">
                 Leaderboard
             </a>
             <a class="nav" href="login.html">

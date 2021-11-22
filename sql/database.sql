@@ -7,13 +7,13 @@ CREATE  TABLE IF NOT EXISTS users(
     username VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    score INT,
+    score INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS tasks(
     id INT NOT NULL AUTO_INCREMENT,
-    user_id INT 
+    user_id INT,
     title VARCHAR(100) NOT NULL,
     subject VARCHAR(100) NOT NULL,
     duration INT NOT NULL,

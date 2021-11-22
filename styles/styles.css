@@ -312,3 +312,27 @@ background-color: rgba(255, 255, 255, 0.517);
 
   align-items: center;
 }
+
+/* ------------------------------------- */
+
+.leaderboard__title{
+  font-size: 3rem;
+  font-family: "Lora", serif;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.leaderboard {
+  margin: 0 auto;
+  max-width: 1024px;
+  font-size: 2rem;
+  border-collapse: collapse;
+  text-align: left;
+  
+}
+
+th, tr, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 25px;
+}

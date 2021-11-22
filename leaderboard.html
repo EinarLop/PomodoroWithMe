@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/styles.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<title>Document</title>
+</head>
+
+
+<script>
+ let cookie = document.cookie
+ let i = cookie.indexOf("=")
+ let user_id = cookie.substring(i+1)
+ let route = "user_id="+user_id; 
+
+    $(window).load(function(){
+        $.ajax({
+				url: 'http://localhost/pomodorowithme/api/leaderboard.php',
+				type: 'GET', 
+				dataType: "JSON",
+                success: () => {console.log(1)}
+			})	
+			 .done(function(res) {
+				console.log(res)
+                  
+                    
+                    $.each(res, function (index, user) {
+                       
+                      
+                        container = $("#leaderboard") 
+                        let realIndex = parseInt(index) + 1
+                        container.html(container.html() + 
+                        ` 
+                        <tr>  <td>  ${realIndex} </td>  <td>  ${user.username} </td> <td>  ${user.score} </td> </tr>
+                        
+                        `
+
+                
+                        )  
+                });
+
+
+                 
+			 })
+			 
+			 .fail(function(error) {
+				 console.log(error);
+			 })
+			 
+			 .always(function() {
+				 console.log("complete");
+					
+			});
+
+    }
+    )
+    
+
+</script>
+<body>
+    <header>
+        <nav class="icon__container">
+            <a class="icon" href="index.html">
+            PWM
+            </a>
+            <span class="icon__sub">Pomodoro with me</span>
+    </nav>
+        <nav class="nav__container">
+            <a href="createTask.html"class="nav">
+                Create task
+            </a>
+            <a href="index.html"class="nav">
+                My tasks
+            </a>
+            <a href="leaderboard.html" class="nav">
+                Leaderboard
+            </a>
+            <a class="nav" href="login.html">
+                Login/Register
+            </a>
+        </nav>
+    </header>
+
+    <main class="leaderboard__container">
+        <p class="leaderboard__title"> Leaderboard </p>
+        <table  id="leaderboard" class="leaderboard">
+            <tr><th>Rank</th> <th>Username</th> <th>Points</th></tr> 
+
+
+        </table>
+
+       
+    </main>
+
+ 
+    
+</body>
+</html>
+
+
+<!-- To do: 1. Update time , 2. Leaderboard, 3. Landing page -->
