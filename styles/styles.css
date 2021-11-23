@@ -379,6 +379,7 @@ th, tr, td {
     width: 100%;
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 
 .button--signup{
