@@ -394,3 +394,16 @@ th, tr, td {
   color: white;
   
 }
+
+.buttons__container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#saveProgress, #closeTask{
+  width: 48%;
+}
+#button--double{
+  width: 100%;
+}

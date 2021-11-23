@@ -19,8 +19,8 @@ function debug_to_console($data) {
     $user_id=$_POST['user_id'];
 	
 	
-	$query = "INSERT INTO tasks(user_id,title,subject,duration,current_minutes,due_date,priority) 
-    VALUES ($user_id,'$title','$subject','$duration', 0, '$due_date','$priority')";
+	$query = "INSERT INTO tasks(user_id,title,subject,duration,current_minutes,due_date,priority,status) 
+    VALUES ($user_id,'$title','$subject','$duration', 0, '$due_date','$priority', 'open')";
 
 	if(!databaseConnection($query)){
        echo "popp";

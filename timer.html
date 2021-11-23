@@ -56,9 +56,20 @@ var globalTime = 0
                      <button onclick={startTimer(25)} class="button--submit"> Start </button>
                 </div>
 
-                <div id="saveProgress" class="timer">    
-                     <button onclick={saveProgress()}  class="button--submit" style="background-color: #f14d00;"> Save progress</button>
+                
+                <div class="buttons__container"> 
+                    <div id="saveProgress" class="timer">    
+                         <button onclick={saveProgress()}  class="button--submit" id="button--double" style="background-color: #f14d00;"> Save progress</button>
+                    </div>
+
+                    <div id="closeTask" class="timer">    
+                     <button onclick="closeTask()" id="button--double"  class="button--submit" style="background-color: #34cb46;"> Finish task</button>
+                    </div>
                 </div>
+
+                
+
+             
 
                 <p id="message--error" class="message--error"></p>
 
@@ -90,7 +101,9 @@ var globalTime = 0
 
     document.querySelector("#timer").innerHTML = `<button  class="button--submit"> Start </button> `
                      
-    document.querySelector("#saveProgress").innerHTML = ` <button onclick="errorMsg(1)" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+    document.querySelector("#saveProgress").innerHTML = `   <button onclick=errorMsg(1)  class="button--submit" id="button--double" style="background-color: #f14d00;"> Save progress</button> `
+
+    document.querySelector("#closeTask").innerHTML = ` <button onclick="errorMsg(3)" id="button--double"  class="button--submit" style="background-color: #34cb46;"> Finish task</button>`
      
 
     var timer = duration*60, minutes, seconds;
@@ -123,7 +136,11 @@ var globalTime = 0
                 document.querySelector("#timer__msg").textContent = "Pomodoro session completed, let's take a break"
                 document.querySelector("#time").textContent = "5:00"
                 document.querySelector("#timer").innerHTML = `<button onclick={startTimer(5)} class="button--submit"> Start </button> `
-                document.querySelector("#saveProgress").innerHTML = ` <button onclick="saveProgress()" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+                document.querySelector("#saveProgress").innerHTML = ` <button onclick="saveProgress()" id="button--double" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+
+                document.querySelector("#closeTask").innerHTML = `<button onclick="closeTask()" id="button--double"  class="button--submit" style="background-color: #34cb46;"> Finish task</button> `
+                
+                
                 
                 regularSession = clearInterval(regularSession)
             }
@@ -132,6 +149,8 @@ var globalTime = 0
                 document.querySelector("#time").textContent = "25:00"
                 document.querySelector("#timer").innerHTML = `<button onclick={startTimer(25)} class="button--submit"> Start </button> `
                 document.querySelector("#saveProgress").innerHTML = ` <button onclick="saveProgress()" id="saveProgress" class="button--submit" style="background-color: #f14d00;"> Save progress</button> `
+
+                document.querySelector("#closeTask").innerHTML = `<button onclick="closeTask()" id="button--double"  class="button--submit" style="background-color: #34cb46;"> Finish task</button> `
 
                 regularSession = clearInterval(regularSession)
             }
@@ -144,6 +163,21 @@ function errorMsg(id){
     if (id ===1 ){
         document.querySelector("#message--error").innerHTML = "Progress can't be saved during a pomodoro session"
     }
+    else if (id ===2){
+        document.querySelector("#message--error").innerHTML = "Progress saved successfully"
+        document.querySelector("#message--error").style.color = "green"
+    }
+
+    else if (id ===3){
+        document.querySelector("#message--error").innerHTML = "Task can't be closed during a pomodoro session"
+        document.querySelector("#message--error").style.color = "red"
+    }
+    else if (id ===4){
+        document.querySelector("#message--error").innerHTML = "Task closed successfully"
+        document.querySelector("#message--error").style.color = "Green"
+    }
+
+
     else{
         document.querySelector("#message--error").innerHTML = "Progress saved successfully"
         document.querySelector("#message--error").style.color = "green"
@@ -173,6 +207,31 @@ function saveProgress(){
 			 })
 }
 
+
+function closeTask(){
+    let url = new URL(window.location.href)
+    let id = url.searchParams.get("id");
+    let cookie = document.cookie
+    let i = cookie.indexOf("=")
+    let userId = cookie.substring(i+1)
+    let route = "id="+id+"&current_minutes="+globalTime+"&user_id="+userId;
+
+    $.ajax({
+            url: 'http://localhost/pomodorowithme/api/closeTask.php',
+		    type: 'POST',
+		    data: route,
+			})	
+            .done(function(res) {
+                errorMsg(4)
+                setTimeout(() =>{
+                    window.location.href = "index.html";
+                },1000)
+			 })
+			 
+			 .fail(function(error) {
+				 console.log(error);
+			 })
+}
 
             </script>
 

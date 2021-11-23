@@ -11,7 +11,7 @@ function debug_to_console($data) {
 }
     
 
-	$query = "SELECT * FROM users ORDER BY score";
+	$query = "SELECT * FROM users ORDER BY score DESC";
     $result = databaseConnection($query);
     $data = new ArrayObject(array());
     $i=0;

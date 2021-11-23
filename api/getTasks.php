@@ -12,7 +12,7 @@ function debug_to_console($data) {
     $user_id=$_POST['user_id'];
     // debug_to_console($user_id);
 
-	$query = "SELECT * FROM tasks WHERE user_id=$user_id";
+	$query = "SELECT * FROM tasks WHERE user_id=$user_id AND status='open'";
     $result = databaseConnection($query);
     $data = new ArrayObject(array());
     $i=0;
